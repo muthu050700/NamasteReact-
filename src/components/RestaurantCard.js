@@ -2,14 +2,20 @@ import { CDN_URL } from "../utils/constants";
 
 const ResturantCard = (props) => {
     const { resData } = props;
-    const { name, cuisines, costForTwo, deliveryTime } = (resData ?? {}).data;
+    console.log(resData.info);
+
+    const { name, cuisines, costForTwo } = (resData ?? {}).info;
+    const { deliveryTime } = (resData ?? {}).info.sla;
     return (
-        <div className="res-card">
-            <img src={CDN_URL + resData.data.cloudinaryImageId} className="res-logo" alt="res-img" />
-            <h3>{name}</h3>
-            <h4>{(cuisines).join(",")}</h4>
-            <h4>{(costForTwo / 100)} for two</h4>
-            <h4>{deliveryTime} minutes</h4>
+        <div className=" w-[300px] bg-gray-300 h-[360px] rounded-2xl px-4 py-3">
+            <img className="rounded-lg shadow-lg" src={CDN_URL + resData.info.cloudinaryImageId} alt="res-img" />
+            <h3 className=" font-bold py-2 text-lg">{name}</h3>
+            <h4 className=" font-semibold pb-2">{(cuisines).join(", ")}</h4>
+            <div className=" flex justify-between font-medium">
+                <h4>{costForTwo}</h4>
+                <h4>{deliveryTime} minutes</h4>
+            </div>
+
         </div>
     )
 }
